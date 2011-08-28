@@ -8,14 +8,29 @@ class UsersController extends AppController
   */
   function login()
   {
-    
+    $this->set("login_error", false); //初期表示時はエラー無しとする    
   }
   /*
     ログイン処理
   */
   function login_cmp()
   {
-    $this->flash("ログイン成功", "/bookmarks/");
+    //入力データを元にパラメータ検索を行う
+    $cond = array(
+      'conditions' => array(
+        'User.mail'     => $this->params['form']['mail'],
+        'User.password' => $this->params['form']['password'],
+      )
+    );
+    $data = $this->User->find('all', $cond);//find('count') 
+    //データが存在しない場合はログイン画面を表示する
+    if(count($data) == 0) 
+    {
+      $this->set("login_error", true);
+      $this->render("login");
+      return;  
+    }
+    $this->flash("ログイン成功、{$data[0]['User']['name']}さん、ようこそ", "/bookmarks/");
   }
 }
 ?>
