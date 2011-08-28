@@ -35,5 +35,10 @@ class UsersController extends AppController
     $this->flash("ログイン成功、{$data[0]['User']['name']}さん、ようこそ", "/bookmarks/");
   }
 
+  function logout()
+  {
+    $this->Session->delete("auth");
+    $this->flash("さようなら", "/users/login");
+  }
 }
 ?>
