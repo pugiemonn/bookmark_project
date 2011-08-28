@@ -30,7 +30,10 @@ class UsersController extends AppController
       $this->render("login");
       return;  
     }
+    //セッションにログイン情報を格納する
+    $this->Session->write("auth", $data[0]['User']);
     $this->flash("ログイン成功、{$data[0]['User']['name']}さん、ようこそ", "/bookmarks/");
   }
+
 }
 ?>
