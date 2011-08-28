@@ -15,7 +15,7 @@ class UsersController extends AppController
   */
   function login_cmp()
   {
-
+    $this->flash("ログイン成功", "/bookmarks/");
   }
 }
 ?>
